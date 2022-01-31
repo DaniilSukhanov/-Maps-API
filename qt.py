@@ -17,27 +17,33 @@ class Example(QMainWindow, Ui_MainWindow):
         self.APIKEY = "40d1649f-0493-4b70-98ba-98533de7710b"
 
     def read_input(self):
-        dolgota = self.lineEdit.text()
-        shirote = self.lineEdit_3.text()
-        mash = self.lineEdit_2.text()
-        print(3)
-        # if mash in range(0, 18) and float(dolgota) >= -180 and float(dolgota) <= 180 and float(shirote) >= -90 and\
-        #         float(shirote) <= 90:
-        self.get_map_image(f'{float(dolgota)},{float(shirote)}', int(mash))
+        dolgota = float(self.lineEdit.text())
+        shirote = float(self.lineEdit_3.text())
+        mash = int(self.lineEdit_2.text())
+        if mash in range(0, 18) and dolgota >= -180 and dolgota <= 180 and shirote >= -90 and\
+                 shirote <= 90:
+            self.get_map_image(f'{dolgota},{shirote}', str(mash))
 
     def get_map_image(self, ll, zoom, map_type='map'):
-        print(1)
         params = {
             'll': ll,
             'z': zoom,
-            'l': map_type,
-            'key': self.APIKEY
+            'l': map_type
         }
         response = requests.get(self.PREFIX, params=params)
-        pixmap = QPixmap()
-        pixmap.loadFromData(response.content)
+        if not response:
+            print(
+                f"""Ошибка!
+                    Запрос: {self.PREFIX, params}
+                    HTTP статус: {response.status_code}; {response.reason}"""
+            )
+        map_file = 'map_file.png'
+        with open(map_file, "wb") as file:
+            file.write(response.content)
+        pixmap = QPixmap(map_file)
+        print('somet')
         self.label.setPixmap(pixmap)
-        print('something')
+
 
 
 if __name__ == '__main__':
