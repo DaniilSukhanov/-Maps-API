@@ -25,8 +25,8 @@ class Example(QMainWindow, Ui_MainWindow):
 
     def set_step_spinbox(self):
         k = 2 ** self.spinBox_zoom.value()
-        spn_longitude = 180 / k
-        spn_latitude = 360 / k
+        spn_longitude = 90 / k
+        spn_latitude = 180 / k
         self.doubleSpinBox_longitude.setSingleStep(spn_longitude)
         self.doubleSpinBox_latitude.setSingleStep(spn_latitude)
         self.read_input()
