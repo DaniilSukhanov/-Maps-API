@@ -13,9 +13,11 @@ class Example(QMainWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
         self.pushButton_load_image.clicked.connect(self.read_input)
+        # Вызов функции при обновлении значения
         self.doubleSpinBox_latitude.valueChanged.connect(self.read_input)
         self.doubleSpinBox_longitude.valueChanged.connect(self.read_input)
         self.spinBox_zoom.valueChanged.connect(self.set_step_spinbox)
+        self.set_step_spinbox()
         self.keys = {
             Qt.Key_Up: self.doubleSpinBox_longitude.stepUp,
             Qt.Key_Down: self.doubleSpinBox_longitude.stepDown,
@@ -24,6 +26,7 @@ class Example(QMainWindow, Ui_MainWindow):
         }
 
     def set_step_spinbox(self):
+        """Ставит размер шагов для spinbox широты и долготы"""
         k = 2 ** self.spinBox_zoom.value()
         spn_longitude = 90 / k
         spn_latitude = 180 / k
@@ -39,11 +42,13 @@ class Example(QMainWindow, Ui_MainWindow):
             self.spinBox_zoom.stepUp()
 
     def keyPressEvent(self, event: QKeyEvent):
+        """Управление координатами (перемещение стрелками)"""
         result = self.keys.get(event.key(), None)
         if result is not None:
             result()
 
     def read_input(self):
+        """Прочтение вводимых данных"""
         latitude = self.doubleSpinBox_latitude.value()
         longitude = self.doubleSpinBox_longitude.value()
         self.label_image.setPixmap(
