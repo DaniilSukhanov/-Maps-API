@@ -49,6 +49,9 @@
     </item>
     <item row="1" column="0" colspan="7">
      <widget class="QPushButton" name="pushButton_load_image">
+      <property name="focusPolicy">
+       <enum>Qt::ClickFocus</enum>
+      </property>
       <property name="text">
        <string>Загрузить картинку</string>
       </property>

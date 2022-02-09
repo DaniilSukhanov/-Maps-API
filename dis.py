@@ -33,6 +33,7 @@ class Ui_MainWindow(object):
         self.spinBox_zoom.setObjectName("spinBox_zoom")
         self.gridLayout.addWidget(self.spinBox_zoom, 0, 6, 1, 1)
         self.pushButton_load_image = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_load_image.setFocusPolicy(QtCore.Qt.ClickFocus)
         self.pushButton_load_image.setObjectName("pushButton_load_image")
         self.gridLayout.addWidget(self.pushButton_load_image, 1, 0, 1, 7)
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
