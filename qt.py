@@ -17,6 +17,7 @@ class Example(QMainWindow, Ui_MainWindow):
         self.doubleSpinBox_latitude.valueChanged.connect(self.read_input)
         self.doubleSpinBox_longitude.valueChanged.connect(self.read_input)
         self.spinBox_zoom.valueChanged.connect(self.set_step_spinbox)
+        self.comboBox_layer.currentTextChanged.connect(self.read_input)
         self.set_step_spinbox()
         self.keys = {
             Qt.Key_Up: self.doubleSpinBox_longitude.stepUp,
@@ -55,7 +56,8 @@ class Example(QMainWindow, Ui_MainWindow):
             get_map_image(
                 f'{latitude},{longitude}',
                 f'{self.doubleSpinBox_latitude.singleStep()},'
-                f'{self.doubleSpinBox_longitude.singleStep()}'
+                f'{self.doubleSpinBox_longitude.singleStep()}',
+                self.comboBox_layer.currentText()
             )
         )
 

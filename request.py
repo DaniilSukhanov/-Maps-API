@@ -3,7 +3,7 @@ from PyQt5.QtGui import QPixmap
 import const
 
 
-def get_map_image(ll, spn, map_type='map'):
+def get_map_image(ll, spn, map_type):
     params = {
         'll': ll,
         'spn': spn,
