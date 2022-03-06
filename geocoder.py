@@ -1,8 +1,8 @@
 import requests
+from const import API_KEY
 
-API_KEY = '40d1649f-0493-4b70-98ba-98533de7710b'
 
-
+# Возвращает объект по адресу.
 def geocode(address):
     api_server = 'http://geocode-maps.yandex.ru/1.x/?'
     params = {
@@ -28,13 +28,14 @@ def geocode(address):
     return features[0]['GeoObject'] if features else None
 
 
+# Возвращает координаты по заданному адресу.
 def get_coordinates(address):
     toponym = geocode(address)
-    if not toponym:
-        return None, None
+    if toponym is None:
+        return None
     toponym_coords = toponym['Point']['pos']
-    toponym_long, toponym_latt = toponym_coords.split()
-    return float(toponym_long), float(toponym_long)
+    toponym_latt, toponym_long = toponym_coords.split()
+    return float(toponym_latt), float(toponym_long)
 
 
 def get_ll_span(address):

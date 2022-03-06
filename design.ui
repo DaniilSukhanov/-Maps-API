@@ -18,6 +18,32 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="5">
+     <widget class="QSpinBox" name="spinBox_zoom">
+      <property name="focusPolicy">
+       <enum>Qt::ClickFocus</enum>
+      </property>
+      <property name="acceptDrops">
+       <bool>false</bool>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhDigitsOnly</set>
+      </property>
+      <property name="maximum">
+       <number>17</number>
+      </property>
+      <property name="singleStep">
+       <number>1</number>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="4">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>Маштаб</string>
+      </property>
+     </widget>
+    </item>
     <item row="0" column="2">
      <widget class="QLabel" name="label">
       <property name="text">
@@ -25,10 +51,57 @@
       </property>
      </widget>
     </item>
+    <item row="0" column="7">
+     <widget class="QComboBox" name="comboBox_layer">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="editable">
+       <bool>false</bool>
+      </property>
+      <property name="duplicatesEnabled">
+       <bool>false</bool>
+      </property>
+      <property name="frame">
+       <bool>true</bool>
+      </property>
+      <item>
+       <property name="text">
+        <string>map</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>sat</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>sat,skl</string>
+       </property>
+      </item>
+     </widget>
+    </item>
     <item row="0" column="0">
      <widget class="QLabel" name="label_2">
       <property name="text">
        <string>Широта</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0" colspan="8">
+     <widget class="QLabel" name="label_image">
+      <property name="text">
+       <string>Image</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </item>
@@ -78,16 +151,6 @@
       </property>
      </widget>
     </item>
-    <item row="3" column="0" colspan="8">
-     <widget class="QLabel" name="label_image">
-      <property name="text">
-       <string>Image</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-    </item>
     <item row="0" column="1">
      <widget class="QDoubleSpinBox" name="doubleSpinBox_latitude">
       <property name="enabled">
@@ -128,7 +191,14 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="0" colspan="8">
+    <item row="0" column="6">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>Слой</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0" colspan="8">
      <widget class="QPushButton" name="pushButton_load_image">
       <property name="focusPolicy">
        <enum>Qt::ClickFocus</enum>
@@ -138,73 +208,16 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="4">
-     <widget class="QLabel" name="label_3">
-      <property name="text">
-       <string>Маштаб</string>
-      </property>
-     </widget>
+    <item row="2" column="0" colspan="7">
+     <widget class="QLineEdit" name="lineEdit_search"/>
     </item>
-    <item row="0" column="5">
-     <widget class="QSpinBox" name="spinBox_zoom">
+    <item row="2" column="7">
+     <widget class="QPushButton" name="pushButton_search">
       <property name="focusPolicy">
        <enum>Qt::ClickFocus</enum>
       </property>
-      <property name="acceptDrops">
-       <bool>false</bool>
-      </property>
-      <property name="inputMethodHints">
-       <set>Qt::ImhDigitsOnly</set>
-      </property>
-      <property name="maximum">
-       <number>17</number>
-      </property>
-      <property name="singleStep">
-       <number>1</number>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="7">
-     <widget class="QComboBox" name="comboBox_layer">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::NoFocus</enum>
-      </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
-      <property name="editable">
-       <bool>false</bool>
-      </property>
-      <property name="duplicatesEnabled">
-       <bool>false</bool>
-      </property>
-      <property name="frame">
-       <bool>true</bool>
-      </property>
-      <item>
-       <property name="text">
-        <string>map</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>sat</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>sat,skl</string>
-       </property>
-      </item>
-     </widget>
-    </item>
-    <item row="0" column="6">
-     <widget class="QLabel" name="label_4">
       <property name="text">
-       <string>Слой</string>
+       <string>Искать</string>
       </property>
      </widget>
     </item>
