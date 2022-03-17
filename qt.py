@@ -6,7 +6,8 @@ from PyQt5.QtGui import QKeyEvent, QWheelEvent
 from PyQt5.QtCore import Qt
 
 from request import get_map_image
-from geocoder import get_coordinates
+from geocoder import get_coordinates, get_postcode
+from organizations import address_organization
 
 
 class Example(QMainWindow, Ui_MainWindow):
@@ -14,9 +15,12 @@ class Example(QMainWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
         self.point = None
-        self.pushButton_load_image.clicked.connect(self.read_input)
+        self.postcode = None
+        self.address = 'Адрес не найден'
         # Вызов функции при обновлении значения
+        self.checkBox_switch_postcode.stateChanged.connect(self.show_address)
         self.pushButton_search.clicked.connect(self.move_to_object)
+        self.pushButton_clear_search.clicked.connect(self.clear_search)
         self.lineEdit_search.returnPressed.connect(self.move_to_object)
         self.doubleSpinBox_latitude.valueChanged.connect(self.read_input)
         self.doubleSpinBox_longitude.valueChanged.connect(self.read_input)
@@ -30,6 +34,23 @@ class Example(QMainWindow, Ui_MainWindow):
             Qt.Key_Right: self.doubleSpinBox_latitude.stepUp
         }
 
+    def show_address(self):
+        """Отображает полученный адрес."""
+        address = self.address
+        if self.checkBox_switch_postcode.isChecked():
+            postcode = self.postcode if self.postcode is not None else 'нет'
+            address += f', почтовый индекс: {postcode}'
+        self.label_address.setText(address)
+
+    def clear_search(self):
+        """Очищает поиск (запрос, метка)."""
+        self.point = None
+        self.postcode = None
+        self.address = 'Адрес не найден'
+        self.lineEdit_search.clear()
+        self.label_address.setText(self.address)
+        self.read_input()
+
     def set_point(self, latitude, longitude):
         """Ставит метку в заданные координаты."""
         self.point = (latitude, longitude)
@@ -38,7 +59,18 @@ class Example(QMainWindow, Ui_MainWindow):
         """Перемещает к объекту, прописанный в lineEdit_search."""
         try:
             coord = get_coordinates(self.lineEdit_search.text())
+            try:
+                self.postcode = get_postcode(self.lineEdit_search.text())
+            except KeyError:
+                self.postcode = None
             if coord is not None:
+                try:
+                    self.address = address_organization(
+                        self.lineEdit_search.text()
+                    )
+                except KeyError:
+                    self.address = 'Адрес не найден'
+                self.show_address()
                 self.doubleSpinBox_latitude.setValue(coord[0])
                 self.doubleSpinBox_longitude.setValue(coord[1])
                 self.set_point(*coord)

@@ -16,7 +16,7 @@ def get_map_image(ll, spn, map_type, point=None):
                 point
             )
         ) + ',flag'
-    response = requests.get(const.PREFIX, params=params)
+    response = requests.get(const.PREFIX_STATIC_MAPS, params=params)
     pixmap = QPixmap()
     pixmap.loadFromData(response.content)
     return pixmap
